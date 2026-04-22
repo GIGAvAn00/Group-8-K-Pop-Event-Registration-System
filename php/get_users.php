@@ -1,5 +1,5 @@
 <?php
-header("Content-Type: application/json");
+header("Content-Type: application/json; charset=UTF-8");
 require_once "db.php";
 
 $stmt = $pdo->query("
@@ -8,15 +8,15 @@ $stmt = $pdo->query("
         u.username,
         u.full_name,
         u.email,
-        COUNT(r.id) AS registered_events
+        COUNT(r.registration_id) AS registered_events
     FROM users u
     LEFT JOIN registrations r ON u.user_id = r.user_id
     WHERE u.role = 'fan'
-    GROUP BY u.id
-    ORDER BY u.created_at DESC
+    GROUP BY u.id, u.user_id, u.username, u.full_name, u.email
+    ORDER BY u.id DESC
 ");
 
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$users = $stmt->fetchAll();
 
 echo json_encode([
     "success" => true,

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS ksign_db;
-USE ksign_db;
+CREATE DATABASE IF NOT EXISTS ksign_db_new;
+USE ksign_db_new;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,

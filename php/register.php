@@ -6,7 +6,7 @@ try {
     $raw = file_get_contents("php://input");
     $data = json_decode($raw, true);
 
-    if (!$data) {
+    if (!is_array($data)) {
         echo json_encode([
             "success" => false,
             "message" => "Invalid request data."
@@ -20,10 +20,18 @@ try {
     $username = trim($data["username"] ?? "");
     $password = $data["password"] ?? "";
 
-    if (!$firstName || !$lastName || !$email || !$username || !$password) {
+    if ($firstName === "" || $lastName === "" || $email === "" || $username === "" || $password === "") {
         echo json_encode([
             "success" => false,
             "message" => "All fields are required."
+        ]);
+        exit;
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Invalid email address."
         ]);
         exit;
     }
@@ -46,7 +54,7 @@ try {
     $stmt = $pdo->prepare("
         INSERT INTO users 
         (user_id, first_name, last_name, full_name, username, email, password, role, profile_image)
-        VALUES (?, ?, ?, ?, ?, ?, ?, 'fan', 'image/K-Sign Logo.png')
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
     $stmt->execute([
@@ -56,7 +64,9 @@ try {
         $fullName,
         $username,
         $email,
-        $hashedPassword
+        $hashedPassword,
+        'fan',
+        'image/K-Sign Logo.png'
     ]);
 
     echo json_encode([

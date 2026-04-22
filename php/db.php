@@ -1,8 +1,6 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
-
 $host = "localhost";
-$dbname = "ksign_db";
+$dbname = "ksign_db_new"; // CHANGE THIS to your real working DB name
 $username = "root";
 $password = "";
 
@@ -13,7 +11,9 @@ try {
         $password
     );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
+    header("Content-Type: application/json; charset=UTF-8");
     echo json_encode([
         "success" => false,
         "message" => "Database connection failed.",
