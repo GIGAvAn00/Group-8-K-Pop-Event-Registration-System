@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$dbname = "ksign_db_new"; // CHANGE THIS to your real working DB name
+$dbname = "ksign_db_new"; 
 $username = "root";
-$password = "";
+$password = "Ivan05150615";
 
 try {
     $pdo = new PDO(
