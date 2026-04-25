@@ -27,12 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (!terms) {
-      message.textContent = "Please agree to the terms and conditions.";
-      message.style.color = "#ffd1e8";
-      return;
-    }
-
     try {
       const response = await fetch("php/register.php", {
         method: "POST",

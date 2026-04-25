@@ -39,6 +39,34 @@ document.addEventListener("DOMContentLoaded", () => {
     return value ?? "";
   }
 
+  function getImagePath(path) {
+  const fallback = "image/K-Sign Logo.png";
+
+  if (!path) return fallback;
+
+  let cleanPath = String(path).trim().replace(/\\/g, "/");
+
+  if (
+    cleanPath.startsWith("http://") ||
+    cleanPath.startsWith("https://") ||
+    cleanPath.startsWith("data:")
+  ) {
+    return cleanPath;
+  }
+
+  if (/^[A-Za-z]:\//.test(cleanPath)) {
+    return fallback;
+  }
+
+  cleanPath = cleanPath.replace(/^\/+/, "");
+
+  if (!cleanPath.includes("/")) {
+    cleanPath = `image/${cleanPath}`;
+  }
+
+  return cleanPath;
+}
+
   function getParticipantCount(eventIdValue) {
     return registrations
       .filter((reg) => reg.event_id === eventIdValue)
@@ -134,10 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <tr>
             <td>
               <img 
-                src="${safeText(event.image)}" 
+                src="${getImagePath(event.image)}" 
                 alt="${safeText(event.title)}" 
                 class="event-thumb"
-                onerror="this.src='image/K-Sign Logo.png'"
+                onerror="this.onerror=null; this.src='image/K-Sign Logo.png';"
               >
             </td>
             <td>${safeText(event.title)}</td>

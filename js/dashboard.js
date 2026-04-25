@@ -42,6 +42,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function getImagePath(path) {
+  const fallback = "image/K-Sign Logo.png";
+
+  if (!path) return fallback;
+
+  let cleanPath = String(path).trim().replace(/\\/g, "/");
+
+  if (
+    cleanPath.startsWith("http://") ||
+    cleanPath.startsWith("https://") ||
+    cleanPath.startsWith("data:")
+  ) {
+    return cleanPath;
+  }
+
+  if (/^[A-Za-z]:\//.test(cleanPath)) {
+    return fallback;
+  }
+
+  cleanPath = cleanPath.replace(/^\/+/, "");
+
+  if (!cleanPath.includes("/")) {
+    cleanPath = `image/${cleanPath}`;
+  }
+
+  return cleanPath;
+ }
+
   function loadCurrentUser() {
     currentUser = JSON.parse(localStorage.getItem("ksignCurrentUser"));
 
@@ -154,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="col-md-6 col-lg-4">
             <div class="event-card">
               <div class="event-image">
-                <img src="${event.image}" alt="${event.title}" class="img-fluid" onerror="this.src='image/K-Sign Logo.png'">
+                <img src="${getImagePath(event.image)}" alt="${event.title}" class="img-fluid" onerror="this.onerror=null; this.src='image/K-Sign Logo.png'">
                 <span class="${badgeClass}">${event.status}</span>
               </div>
               <div class="event-content">
