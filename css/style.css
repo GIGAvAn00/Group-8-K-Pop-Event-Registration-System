@@ -25,11 +25,9 @@ body {
   position: relative;
   overflow: hidden;
   background:
-    /* Subtle glowing stars/dots */
     radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 1px, transparent 2px),
     radial-gradient(circle at 80% 30%, rgba(255,255,255,0.15) 1px, transparent 2px),
     radial-gradient(circle at 40% 70%, rgba(255,255,255,0.1) 1px, transparent 2px),
-    /* Deep Dark Purple Gradient */
     linear-gradient(180deg, #31135e 0%, #250d4d 35%, #1a083a 65%, #0f0422 100%);
   background-size: 120px 120px, 160px 160px, 200px 200px, cover;
 }
@@ -42,7 +40,6 @@ body {
   right: 0;
   bottom: 0;
   height: 45%;
-  /* Darker silhouette/mountain effect */
   background: linear-gradient(to top, rgba(10, 2, 26, 0.95), rgba(10, 2, 26, 0.2));
   clip-path: polygon(
     0 60%, 6% 50%, 12% 62%, 18% 46%, 24% 58%, 31% 42%, 39% 60%,
@@ -56,7 +53,6 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  /* Darker base shadow */
   background: linear-gradient(to top, #0a021a 0%, rgba(10, 2, 26, 0) 40%);
   pointer-events: none;
 }
@@ -69,7 +65,7 @@ body {
     radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px);
   background-size: 90px 90px, 140px 140px;
   background-position: 0 0, 30px 40px;
-  opacity: 0.3; /* Lowered opacity for a subtler look */
+  opacity: 0.3; 
   pointer-events: none;
 }
 
